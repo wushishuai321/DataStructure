@@ -1,4 +1,7 @@
+/*
 package LinkedlList;
+
+import java.util.Stack;
 
 public class SingleLinkedListDemo
 {
@@ -47,6 +50,55 @@ public class SingleLinkedListDemo
         }
         return temp;
     }
+    //将单链表进行反转，腾讯的面试题
+    public static void reverseList(HeroNode head)
+    {
+        //如果当前链表为空，或者只有一个节点无需反转，直接返回
+        if (head.next == null || head.next.next == null)
+        {
+            return;
+        }
+        //先定义一个辅助的变量，帮助我们遍历原来的链表
+        HeroNode cur = head.next;
+        HeroNode next = null;  //指向当前节点下一个节点。
+        HeroNode reverseHead = new HeroNode(0,"","");
+        //遍历原来的链表，没遍历一个节点，就将其取出，并放在新的链表reverseHead的最前端
+        while(cur != null)
+        {
+            next = cur.next;//暂时保存当前节点的下一个节点
+            cur.next =reverseHead.next;//将cur的下一个节点指向新的链表的头部。
+            reverseHead.next = cur;
+            cur = next;//让cur后移
+        }
+        //将head。next指向reverseHead.next，这样就实现了单链表的反转
+        head.next = reverseHead.next;
+    }
+    //逆序打印单链表，
+    //方式1；先将单链表进行反转操作，然后再遍历。这样做的问题是会破坏原来链表的结构，不建议
+    //方式2：可以利用栈这个数据结构，将各个节点压入到栈中，然后利用栈的先经后出的特点，就实现了逆序打印
+    //使用方式2来实现逆序打印。
+    public static void reversePrint(HeroNode head)
+    {
+        if (head.next == null)
+        {
+            return;//空链表不能打印
+        }
+        //创建一个栈，将每个节点放进当中
+        Stack<HeroNode> s = new Stack<HeroNode>();
+        HeroNode cur = head.next;
+        //将链表的所有节点压入栈中
+        while (cur != null)
+        {
+            s.push(cur);
+            cur = cur.next;
+        }
+        //将栈中的节点进行打印
+        while (s.size() > 0)
+        {
+            System.out.println(s.pop());
+        }
+
+    }
     public static void main(String[] args)
     {
         //测试
@@ -58,10 +110,12 @@ public class SingleLinkedListDemo
         //创建一个链表
         SingleLinkedList singleLinkedList = new SingleLinkedList();
         //加入
-   /*     singleLinkedList.add(hero1);
+   */
+/*     singleLinkedList.add(hero1);
         singleLinkedList.add(hero2);
         singleLinkedList.add(hero3);
-        singleLinkedList.add(hero4);*/
+        singleLinkedList.add(hero4);*//*
+
 
         //加入按照编号的顺序
         singleLinkedList.addByOrder(hero1);
@@ -70,8 +124,17 @@ public class SingleLinkedListDemo
         singleLinkedList.addByOrder(hero2);
         //显示
         singleLinkedList.list();
+        //测试一下单链表的反转功能
+        System.out.println("反转功能为：");
+        reverseList(singleLinkedList.getHead());
+        singleLinkedList.list();
+        //测试一下逆序打印
+        System.out.println("逆序打印功能为");
+        reversePrint(singleLinkedList.getHead());
+        singleLinkedList.list();
 
-        //测试修改节点的代码
+*/
+/*        //测试修改节点的代码
         System.out.println("修改后的链表状态");
         HeroNode newheroNode = new HeroNode(2,"w","s");
         singleLinkedList.update(newheroNode);
@@ -90,7 +153,8 @@ public class SingleLinkedListDemo
         System.out.println();
         //打印此时链表的有效节点的长度
         System.out.println(getLength(singleLinkedList.getHead()));
-        System.out.println(findLastIndexNode(singleLinkedList.getHead(),1));
+        System.out.println(findLastIndexNode(singleLinkedList.getHead(),1));*//*
+
 
     }
 }
@@ -302,3 +366,4 @@ class HeroNode
         return "HeroNode [no="+no+",name="+name+",nickname="+nickname+"]";
     }
 }
+*/
